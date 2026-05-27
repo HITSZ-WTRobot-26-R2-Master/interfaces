@@ -1,0 +1,35 @@
+# Repository Guidelines
+
+## Project Structure & Module Organization
+
+This repository is the ROS 2 interface package named `interfaces`. Message
+definitions live in `msg/`; package metadata lives in `package.xml` and
+`CMakeLists.txt`. The package is built into the shared container base image
+`r2_master_interface`.
+
+## Container Build and Validation
+
+- Build the base image from this package directory:
+  `docker build -t r2_master_interface:humble .`
+- The Dockerfile defaults to the local ROS2-capable base image `ros2:humble`.
+  Override `BASE_IMAGE` only when a different base is intentionally needed.
+- The container workspace root is `/workspace`, and this package is copied to
+  `/workspace/src/interfaces`.
+- The host machine does not have ROS2 installed. Validate with Docker, not
+  host-side `ros2` or `colcon` commands.
+- A quick container check after building is:
+  `docker run --rm r2_master_interface:humble bash -lc 'ros2 interface show interfaces/msg/SerialFrame'`.
+
+## Naming and Downstream Compatibility
+
+The package was renamed from `serial_interfaces` to `interfaces`. Downstream
+packages that still import or depend on `serial_interfaces` are intentionally
+not guaranteed to work until a follow-up migration updates their imports,
+`package.xml` dependencies, CMake `find_package(...)`, and generated include
+paths.
+
+## Coding Style
+
+Keep message definitions small and stable. When changing a `.msg` field, search
+for all publishers/subscribers first and document downstream breakage if the
+consumers are out of scope for the current task.

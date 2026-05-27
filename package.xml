@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="3">
-  <name>serial_interfaces</name>
+  <name>interfaces</name>
   <version>0.0.0</version>
-  <description>Custom message interfaces for serial communication</description>
+  <description>Shared custom message interfaces for the R2 master containers</description>
 
   <maintainer email="your_email@example.com">your_name</maintainer>
   <license>Apache-2.0</license>
