@@ -11,8 +11,9 @@ definitions live in `msg/`; package metadata lives in `package.xml` and
 
 - Build the base image from this package directory:
   `docker build -t r2_master_interface:humble .`
-- The Dockerfile defaults to the local ROS2-capable base image `ros2:humble`.
-  Override `BASE_IMAGE` only when a different base is intentionally needed.
+- The Dockerfile must use the official ROS Docker image namespace by default,
+  currently `ros:humble-ros-base`. Do not default this image to the local
+  custom `ros2:humble` base.
 - The container workspace root is `/workspace`, and this package is copied to
   `/workspace/src/interfaces`.
 - The host machine does not have ROS2 installed. Validate with Docker, not

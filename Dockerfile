@@ -1,10 +1,10 @@
 # Build from this package directory:
 #   docker build -t r2_master_interface:humble .
 
-ARG BASE_IMAGE=ros2:humble
-FROM ${BASE_IMAGE}
-
 ARG ROS_DISTRO=humble
+FROM ros:${ROS_DISTRO}-ros-base
+
+ARG ROS_DISTRO
 ARG UBUNTU_MIRROR=https://mirrors.osa.moe/ubuntu/
 
 ENV ROS_DISTRO=${ROS_DISTRO} \

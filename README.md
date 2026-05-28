@@ -21,12 +21,16 @@ Build the base image from this package directory:
 docker build -t r2_master_interface:humble .
 ```
 
-The Dockerfile defaults to the local ROS2-capable base image `ros2:humble`.
-Override it when a different base is desired:
+The Dockerfile defaults to the official ROS Docker image
+`ros:humble-ros-base`. Do not use the local custom `ros2:humble` image as the
+base for this package.
+
+The ROS distro can be adjusted while still using the official ROS image
+namespace:
 
 ```bash
 docker build \
-  --build-arg BASE_IMAGE=ros:humble-ros-base \
+  --build-arg ROS_DISTRO=humble \
   -t r2_master_interface:humble .
 ```
 
