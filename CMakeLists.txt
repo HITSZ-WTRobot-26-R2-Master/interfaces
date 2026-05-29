@@ -9,6 +9,8 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/SerialFrame.msg"
   "msg/SerialCommand.msg"
   "msg/R2Pose.msg"
+  "msg/PoseCommand.msg"
+  "msg/PoseFeedback.msg"
   DEPENDENCIES std_msgs
 )
 

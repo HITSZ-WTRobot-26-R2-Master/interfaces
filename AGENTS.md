@@ -2,9 +2,11 @@
 
 ## Project Structure & Module Organization
 
-This repository is the ROS 2 interface package named `interfaces`. Message
-definitions live in `msg/`; package metadata lives in `package.xml` and
-`CMakeLists.txt`. The package is built into the shared container base image
+This repository is the ROS 2 interface package named `interfaces`. All custom
+ROS message definitions for the master workspace live in `msg/`; downstream
+packages must consume those shared messages instead of adding package-local
+`.msg` files. Package metadata lives in `package.xml` and `CMakeLists.txt`.
+The package is built into the shared container base image
 `r2_master_interface`.
 
 ## Container Build and Validation
@@ -19,7 +21,7 @@ definitions live in `msg/`; package metadata lives in `package.xml` and
 - The host machine does not have ROS2 installed. Validate with Docker, not
   host-side `ros2` or `colcon` commands.
 - A quick container check after building is:
-  `docker run --rm r2_master_interface:humble bash -lc 'ros2 interface show interfaces/msg/SerialFrame'`.
+  `docker run --rm r2_master_interface:humble bash -lc 'ros2 interface show interfaces/msg/SerialFrame && ros2 interface show interfaces/msg/PoseCommand && ros2 interface show interfaces/msg/PoseFeedback'`.
 
 ## Naming and Downstream Compatibility
 
@@ -33,4 +35,5 @@ paths.
 
 Keep message definitions small and stable. When changing a `.msg` field, search
 for all publishers/subscribers first and document downstream breakage if the
-consumers are out of scope for the current task.
+consumers are out of scope for the current task. When adding a new message,
+register it in `CMakeLists.txt` and update container validation checks.

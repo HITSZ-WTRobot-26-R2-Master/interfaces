@@ -2,8 +2,10 @@ R2 Master Interfaces
 ====================
 
 This package defines the shared ROS2 message interfaces for the R2 master
-container workspace. It replaces the earlier `serial_interfaces` package name
-with the generic ROS package name `interfaces`.
+container workspace. All custom ROS messages for downstream master packages
+live here so each node consumes a single shared contract. It replaces the
+earlier `serial_interfaces` package name with the generic ROS package name
+`interfaces`.
 
 Container Layout
 ----------------
@@ -47,7 +49,7 @@ Docker, not host-side `ros2` or `colcon` commands:
 ```bash
 docker build -t r2_master_interface:humble .
 docker run --rm r2_master_interface:humble \
-  bash -lc 'ros2 interface show interfaces/msg/SerialFrame'
+  bash -lc 'ros2 interface show interfaces/msg/SerialFrame && ros2 interface show interfaces/msg/PoseCommand && ros2 interface show interfaces/msg/PoseFeedback'
 ```
 
 Downstream Migration Note

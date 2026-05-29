@@ -61,7 +61,9 @@ RUN source "/opt/ros/${ROS_DISTRO}/setup.bash" \
         --symlink-install \
     && test -f "${WORKSPACE_DIR}/install/interfaces/share/interfaces/msg/R2Pose.msg" \
     && test -f "${WORKSPACE_DIR}/install/interfaces/share/interfaces/msg/SerialFrame.msg" \
-    && test -f "${WORKSPACE_DIR}/install/interfaces/share/interfaces/msg/SerialCommand.msg"
+    && test -f "${WORKSPACE_DIR}/install/interfaces/share/interfaces/msg/SerialCommand.msg" \
+    && test -f "${WORKSPACE_DIR}/install/interfaces/share/interfaces/msg/PoseCommand.msg" \
+    && test -f "${WORKSPACE_DIR}/install/interfaces/share/interfaces/msg/PoseFeedback.msg"
 
 COPY --chmod=755 docker/ros_entrypoint.sh /ros_entrypoint.sh
 
