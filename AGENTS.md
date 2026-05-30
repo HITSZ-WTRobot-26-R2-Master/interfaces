@@ -21,7 +21,7 @@ The package is built into the shared container base image
 - The host machine does not have ROS2 installed. Validate with Docker, not
   host-side `ros2` or `colcon` commands.
 - A quick container check after building is:
-  `docker run --rm r2_master_interface:humble bash -lc 'ros2 interface show interfaces/msg/SerialFrame && ros2 interface show interfaces/msg/PoseCommand && ros2 interface show interfaces/msg/PoseFeedback'`.
+  `docker run --rm r2_master_interface:humble bash -lc 'ros2 interface show interfaces/msg/SerialFrame && ros2 interface show interfaces/msg/ChassisFeedback && ros2 interface show interfaces/msg/PoseCommand && ros2 interface show interfaces/msg/PoseFeedback'`.
 
 ## Naming and Downstream Compatibility
 

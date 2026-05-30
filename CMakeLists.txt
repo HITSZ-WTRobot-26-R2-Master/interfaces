@@ -8,6 +8,7 @@ find_package(std_msgs REQUIRED)
 rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/SerialFrame.msg"
   "msg/SerialCommand.msg"
+  "msg/ChassisFeedback.msg"
   "msg/R2Pose.msg"
   "msg/PoseCommand.msg"
   "msg/PoseFeedback.msg"

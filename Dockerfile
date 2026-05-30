@@ -62,6 +62,7 @@ RUN source "/opt/ros/${ROS_DISTRO}/setup.bash" \
     && test -f "${WORKSPACE_DIR}/install/interfaces/share/interfaces/msg/R2Pose.msg" \
     && test -f "${WORKSPACE_DIR}/install/interfaces/share/interfaces/msg/SerialFrame.msg" \
     && test -f "${WORKSPACE_DIR}/install/interfaces/share/interfaces/msg/SerialCommand.msg" \
+    && test -f "${WORKSPACE_DIR}/install/interfaces/share/interfaces/msg/ChassisFeedback.msg" \
     && test -f "${WORKSPACE_DIR}/install/interfaces/share/interfaces/msg/PoseCommand.msg" \
     && test -f "${WORKSPACE_DIR}/install/interfaces/share/interfaces/msg/PoseFeedback.msg"
 

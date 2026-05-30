@@ -49,7 +49,7 @@ Docker, not host-side `ros2` or `colcon` commands:
 ```bash
 docker build -t r2_master_interface:humble .
 docker run --rm r2_master_interface:humble \
-  bash -lc 'ros2 interface show interfaces/msg/SerialFrame && ros2 interface show interfaces/msg/PoseCommand && ros2 interface show interfaces/msg/PoseFeedback'
+  bash -lc 'ros2 interface show interfaces/msg/SerialFrame && ros2 interface show interfaces/msg/ChassisFeedback && ros2 interface show interfaces/msg/PoseCommand && ros2 interface show interfaces/msg/PoseFeedback'
 ```
 
 Downstream Migration Note
