@@ -6,6 +6,7 @@ FROM ros:${ROS_DISTRO}-ros-base
 
 ARG ROS_DISTRO
 ARG UBUNTU_MIRROR=https://mirrors.osa.moe/ubuntu/
+ARG ROS2_APT_MIRROR=https://mirrors.osa.moe/ros2/ubuntu
 
 ENV ROS_DISTRO=${ROS_DISTRO} \
     WORKSPACE_DIR=/workspace \
@@ -18,7 +19,9 @@ RUN <<EOF
 set -euo pipefail
 . /etc/os-release
 codename="${VERSION_CODENAME}"
+arch="$(dpkg --print-architecture)"
 rm -f /etc/apt/sources.list.d/ubuntu.sources
+rm -f /etc/apt/sources.list.d/ros2.list /etc/apt/sources.list.d/ros2-latest.list /etc/apt/sources.list.d/ros2.sources
 cat >/etc/apt/sources.list <<SOURCES
 # Source mirror entries are commented out to keep apt update fast.
 deb ${UBUNTU_MIRROR} ${codename} main restricted universe multiverse
@@ -37,6 +40,9 @@ deb http://security.ubuntu.com/ubuntu/ ${codename}-security main restricted univ
 # Prerelease repository, not recommended.
 # deb ${UBUNTU_MIRROR} ${codename}-proposed main restricted universe multiverse
 # deb-src ${UBUNTU_MIRROR} ${codename}-proposed main restricted universe multiverse
+SOURCES
+cat >/etc/apt/sources.list.d/ros2.list <<SOURCES
+deb [arch=${arch} signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] ${ROS2_APT_MIRROR} ${codename} main
 SOURCES
 EOF
 
