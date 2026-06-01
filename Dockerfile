@@ -19,9 +19,7 @@ RUN <<EOF
 set -euo pipefail
 . /etc/os-release
 codename="${VERSION_CODENAME}"
-arch="$(dpkg --print-architecture)"
 rm -f /etc/apt/sources.list.d/ubuntu.sources
-rm -f /etc/apt/sources.list.d/ros2.list /etc/apt/sources.list.d/ros2-latest.list /etc/apt/sources.list.d/ros2.sources
 cat >/etc/apt/sources.list <<SOURCES
 # Source mirror entries are commented out to keep apt update fast.
 deb ${UBUNTU_MIRROR} ${codename} main restricted universe multiverse
@@ -41,9 +39,19 @@ deb http://security.ubuntu.com/ubuntu/ ${codename}-security main restricted univ
 # deb ${UBUNTU_MIRROR} ${codename}-proposed main restricted universe multiverse
 # deb-src ${UBUNTU_MIRROR} ${codename}-proposed main restricted universe multiverse
 SOURCES
-cat >/etc/apt/sources.list.d/ros2.list <<SOURCES
-deb [arch=${arch} signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] ${ROS2_APT_MIRROR} ${codename} main
-SOURCES
+for ros_source in \
+    /etc/apt/sources.list.d/ros2.sources \
+    /etc/apt/sources.list.d/ros2.list \
+    /etc/apt/sources.list.d/ros2-latest.list \
+    /usr/share/ros-apt-source/ros2.sources; do
+    if [ -e "${ros_source}" ] || [ -L "${ros_source}" ]; then
+        sed -i --follow-symlinks \
+            -e "s#http://packages.ros.org/ros2/ubuntu#${ROS2_APT_MIRROR}#g" \
+            -e "s#https://packages.ros.org/ros2/ubuntu#${ROS2_APT_MIRROR}#g" \
+            -e "s#^Types: deb deb-src\$#Types: deb#g" \
+            "${ros_source}"
+    fi
+done
 EOF
 
 RUN apt-get update \
