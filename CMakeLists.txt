@@ -15,6 +15,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/R2Pose.msg"
   "msg/PoseCommand.msg"
   "msg/PoseFeedback.msg"
+  "msg/BlockStates.msg"
   DEPENDENCIES std_msgs
 )
 
