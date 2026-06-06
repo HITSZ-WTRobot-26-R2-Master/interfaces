@@ -52,7 +52,6 @@ jobs:
             latest=false
           tags: |
             type=raw,value=${{ env.ROS_DISTRO }},enable={{is_default_branch}}
-            type=sha,prefix=${{ env.ROS_DISTRO }}-
             type=semver,pattern=${{ env.ROS_DISTRO }}-{{version}}
             type=semver,pattern=${{ env.ROS_DISTRO }}-{{major}}.{{minor}}
 
