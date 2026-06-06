@@ -27,6 +27,16 @@ The Dockerfile defaults to the official ROS Docker image
 `ros:humble-ros-base`. Do not use the local custom `ros2:humble` image as the
 base for this package.
 
+Local builds use apt mirrors by default. GitHub Actions CI disables that mirror
+rewrite so the CI image is built from the upstream apt sources provided by the
+official ROS base image:
+
+```bash
+docker build \
+  --build-arg USE_APT_MIRROR=false \
+  -t r2_master_interface:humble-ci .
+```
+
 The ROS distro can be adjusted while still using the official ROS image
 namespace:
 

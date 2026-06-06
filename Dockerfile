@@ -5,6 +5,7 @@ ARG ROS_DISTRO=humble
 FROM ros:${ROS_DISTRO}-ros-base
 
 ARG ROS_DISTRO
+ARG USE_APT_MIRROR=true
 ARG UBUNTU_MIRROR=https://mirrors.osa.moe/ubuntu/
 ARG ROS2_APT_MIRROR=https://mirrors.osa.moe/ros2/ubuntu
 
@@ -17,10 +18,11 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 RUN <<EOF
 set -euo pipefail
-. /etc/os-release
-codename="${VERSION_CODENAME}"
-rm -f /etc/apt/sources.list.d/ubuntu.sources
-cat >/etc/apt/sources.list <<SOURCES
+if [ "${USE_APT_MIRROR}" = "true" ]; then
+    . /etc/os-release
+    codename="${VERSION_CODENAME}"
+    rm -f /etc/apt/sources.list.d/ubuntu.sources
+    cat >/etc/apt/sources.list <<SOURCES
 # Source mirror entries are commented out to keep apt update fast.
 deb ${UBUNTU_MIRROR} ${codename} main restricted universe multiverse
 # deb-src ${UBUNTU_MIRROR} ${codename} main restricted universe multiverse
@@ -39,19 +41,20 @@ deb http://security.ubuntu.com/ubuntu/ ${codename}-security main restricted univ
 # deb ${UBUNTU_MIRROR} ${codename}-proposed main restricted universe multiverse
 # deb-src ${UBUNTU_MIRROR} ${codename}-proposed main restricted universe multiverse
 SOURCES
-for ros_source in \
-    /etc/apt/sources.list.d/ros2.sources \
-    /etc/apt/sources.list.d/ros2.list \
-    /etc/apt/sources.list.d/ros2-latest.list \
-    /usr/share/ros-apt-source/ros2.sources; do
-    if [ -e "${ros_source}" ] || [ -L "${ros_source}" ]; then
-        sed -i --follow-symlinks \
-            -e "s#http://packages.ros.org/ros2/ubuntu#${ROS2_APT_MIRROR}#g" \
-            -e "s#https://packages.ros.org/ros2/ubuntu#${ROS2_APT_MIRROR}#g" \
-            -e "s#^Types: deb deb-src\$#Types: deb#g" \
-            "${ros_source}"
-    fi
-done
+    for ros_source in \
+        /etc/apt/sources.list.d/ros2.sources \
+        /etc/apt/sources.list.d/ros2.list \
+        /etc/apt/sources.list.d/ros2-latest.list \
+        /usr/share/ros-apt-source/ros2.sources; do
+        if [ -e "${ros_source}" ] || [ -L "${ros_source}" ]; then
+            sed -i --follow-symlinks \
+                -e "s#http://packages.ros.org/ros2/ubuntu#${ROS2_APT_MIRROR}#g" \
+                -e "s#https://packages.ros.org/ros2/ubuntu#${ROS2_APT_MIRROR}#g" \
+                -e "s#^Types: deb deb-src\$#Types: deb#g" \
+                "${ros_source}"
+        fi
+    done
+fi
 EOF
 
 RUN apt-get update \

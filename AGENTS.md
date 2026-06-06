@@ -13,6 +13,14 @@ The package is built into the shared container base image
 
 - Build the base image from this package directory:
   `docker build -t r2_master_interface:humble .`
+- Local Docker builds use apt mirrors by default through
+  `USE_APT_MIRROR=true`. GitHub Actions CI must pass
+  `USE_APT_MIRROR=false` so CI uses the official ROS base image's upstream apt
+  sources without rewriting source files.
+- GitHub Actions CI for this repository lives in
+  `.github/workflows/docker.yml`. Pull requests build and run the same Docker
+  smoke test without publishing; pushes to `main` and `v*` tags publish
+  `ghcr.io/<owner>/r2_master_interface` after validation.
 - The Dockerfile must use the official ROS Docker image namespace by default,
   currently `ros:humble-ros-base`. Do not default this image to the local
   custom `ros2:humble` base.
