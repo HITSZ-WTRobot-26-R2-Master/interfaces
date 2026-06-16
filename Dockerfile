@@ -57,15 +57,16 @@ SOURCES
 fi
 EOF
 
-RUN apt-get update \
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    apt-get update \
     && apt-get install -y --no-install-recommends \
         build-essential \
         python3-colcon-common-extensions \
         ros-${ROS_DISTRO}-ament-cmake \
         ros-${ROS_DISTRO}-rosidl-default-generators \
         ros-${ROS_DISTRO}-rosidl-default-runtime \
-        ros-${ROS_DISTRO}-std-msgs \
-    && rm -rf /var/lib/apt/lists/*
+        ros-${ROS_DISTRO}-std-msgs
 
 WORKDIR ${WORKSPACE_DIR}
 
