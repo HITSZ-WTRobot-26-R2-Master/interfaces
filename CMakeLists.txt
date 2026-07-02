@@ -16,6 +16,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/PoseCommand.msg"
   "msg/PoseFeedback.msg"
   "msg/BlockStates.msg"
+  "msg/MasterRetry.msg"
   "msg/SpearheadMapTarget.msg"
   "msg/SpearheadMapTargetArray.msg"
   DEPENDENCIES std_msgs
