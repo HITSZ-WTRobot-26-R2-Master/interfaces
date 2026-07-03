@@ -1,13 +1,11 @@
 uint8 STAGE_TAKE_SPEAR=1
 uint8 STAGE_MERLIN=2
-<<<<<<< Updated upstream
+uint8 STAGE_COMBAT=3
 
 uint8 stage
 uint8 spear_index
 uint8 r2_taken_count
 uint8[] taken_r2_blocks
-=======
-uint8 STAGE_COMBAT=3
 
 uint8 COMBAT_SOURCE_HAS_SCROLL=1
 uint8 COMBAT_SOURCE_TAKE_SCROLL_1=2
@@ -23,4 +21,3 @@ uint8 r2_taken_count
 uint8[] taken_r2_blocks
 uint8 combat_source
 uint8 combat_place_layer
->>>>>>> Stashed changes
