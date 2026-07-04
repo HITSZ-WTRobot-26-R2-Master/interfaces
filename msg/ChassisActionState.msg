@@ -6,5 +6,9 @@ uint8 chassis_mode
 bool chassis_curve_finished
 uint8 lift_status
 uint8 grip_status
-bool grip_suction_has_object
-uint8 infrared_receiver_state
+uint8 trajectory_offline_state
+uint8 infrared_switch_state
+bool infrared_switch_0
+bool infrared_switch_1
+bool infrared_switch_2
+bool infrared_switch_3
