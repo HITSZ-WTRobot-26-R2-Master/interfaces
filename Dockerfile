@@ -84,6 +84,8 @@ RUN source "/opt/ros/${ROS_DISTRO}/setup.bash" \
     && test -f "${WORKSPACE_DIR}/install/interfaces/share/interfaces/msg/ChassisActionState.msg" \
     && test -f "${WORKSPACE_DIR}/install/interfaces/share/interfaces/msg/ChassisConnectionState.msg" \
     && test -f "${WORKSPACE_DIR}/install/interfaces/share/interfaces/msg/ChassisFeedback.msg" \
+    && test -f "${WORKSPACE_DIR}/install/interfaces/share/interfaces/msg/DecisionScrollPick.msg" \
+    && test -f "${WORKSPACE_DIR}/install/interfaces/share/interfaces/msg/MasterDecision.msg" \
     && test -f "${WORKSPACE_DIR}/install/interfaces/share/interfaces/msg/PoseCommand.msg" \
     && test -f "${WORKSPACE_DIR}/install/interfaces/share/interfaces/msg/PoseFeedback.msg"
 
