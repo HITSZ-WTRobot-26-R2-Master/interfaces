@@ -7,3 +7,5 @@ uint8 FAKE=4
 std_msgs/Header header
 uint8[12] states
 uint32 revision
+string color
+string match_type
